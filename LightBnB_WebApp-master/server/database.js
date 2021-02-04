@@ -10,6 +10,10 @@ const pool = new Pool({
   database: 'lightbnb',
 });
 
+pool.connect().then(()=> {
+  getAllProperties();
+})
+
 /**
  * Get a single user from the database given their email.
  * @param {String} email The email of the user.
@@ -87,7 +91,7 @@ const getAllProperties = function(options, limit = 10) {
   SELECT * FROM properties
   LIMIT $1;
   `, [limit])
-  .then(res => {res.rows});
+  .then(res => res.rows);
 }
 
 exports.getAllProperties = getAllProperties;
